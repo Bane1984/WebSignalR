@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@section Scripts {
+    <script src="~/js/index.js"></script>
+}
+
+<link rel="stylesheet" href="~/css/chat.css" />
+
+<div id="chatDialog" title="Chat">
+    <div id="chatMainPanel">
+        <ul id="chatHistory"></ul>
+        <div id="bottomPanel">
+            <form id="chatForm">
+                <input id="messageTextbox" type="text" placeholder="Unesite poruku..." />
+                <button type="submit">Posalji</button>
+            </form>
+        </div>
+    </div>
+</div>
