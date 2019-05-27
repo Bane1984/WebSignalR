@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebSignalR.Class;
+using WebSignalR.Services;
 
 namespace WebSignalR
 {
@@ -33,6 +34,8 @@ namespace WebSignalR
             });
 
             services.AddSignalR(); //mozemo dodati bilo gdje
+
+            services.AddSingleton<IChatRoomService, InMemoryChatRoomService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

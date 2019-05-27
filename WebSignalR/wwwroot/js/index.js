@@ -1,5 +1,7 @@
 ﻿var chatterName = 'Posjetioc';
 
+var dialogEl = document.getElementById('chatDialog');
+
 // inicijalizacija SignalR klijenta
 var connection = new signalR.HubConnectionBuilder()
     .withUrl('/chatHub')
@@ -7,7 +9,35 @@ var connection = new signalR.HubConnectionBuilder()
 
 connection.on('ReceiveMessage', renderMessage);
 
-connection.start();
+//connection.start();
+
+connection.onclose(function () {
+    onDisconnected();
+    console.log('Reconnecting in 5 seconds...');
+    setTimeout(startConnection, 5000);
+})
+
+function startConnection() {
+    connection.start()
+        .then(onConnected)
+        .catch(function (err) {
+            console.error(err);
+        });
+}
+
+function onDisconnected() {
+    dialogEl.classList.add('disconnected');
+}
+
+function onConnected() {
+    dialogEl.classList.remove('disconnected');
+
+    var messageTextboxEl = document.getElementById('messageTextbox');
+    messageTextboxEl.focus();
+
+    connection.invoke('SetName', chatterName);
+}
+
 
 function showChatDialog(parameters) {
     var dialogEl = document.getElementById('chatDialog');
